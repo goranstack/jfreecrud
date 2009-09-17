@@ -1,11 +1,14 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>se.bluebrim</groupId>
 	<artifactId>se.bluebrim.crud</artifactId>
 	<name>CRUD Common</name>
-	<version>0.0.1-SNAPSHOT</version>
-	<description>Common  CRUD classes used both on server and client side</description>
+	<version>1.0.0</version>
+	<description>Common CRUD classes used both on server and client side</description>
+	<scm>
+		<connection>scm:svn:http://jfreecrud.googlecode.com/svn/tags/se.bluebrim.crud-1.0.0</connection>
+		<developerConnection>scm:svn:https://jfreecrud.googlecode.com/svn/tags/se.bluebrim.crud-1.0.0</developerConnection>
+	</scm>
 	<repositories>
 		<repository>
 			<id>googlecode-esox</id>
