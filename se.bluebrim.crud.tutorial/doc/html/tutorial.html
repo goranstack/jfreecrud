@@ -1,0 +1,410 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>CRUD framework tutorial</title><meta content="DocBook XSL Stylesheets V1.73.2" name="generator"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="article" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="N10001"></a>CRUD framework tutorial</h2></div><div><div class="author"><h3 class="author"><span class="firstname">G&ouml;ran</span> <span class="surname">St&auml;ck</span></h3></div></div><div><p class="copyright">Copyright &copy; 2008 bluebrim AB</p></div></div><hr></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="sect1"><a href="#N10014">Introduction</a></span></dt><dt><span class="sect1"><a href="#N1001F">Setting up your environment</a></span></dt><dt><span class="sect1"><a href="#N10069">Create projects in your workspace for the tutorial</a></span></dt><dt><span class="sect1"><a href="#N10081">Create database table</a></span></dt><dt><span class="sect1"><a href="#N1009D">Create your first entity class</a></span></dt><dd><dl><dt><span class="sect2"><a href="#N100DF">Implement an equals method</a></span></dt></dl></dd><dt><span class="sect1"><a href="#N100FE">Implement the ArtistDao</a></span></dt><dt><span class="sect1"><a href="#N10126">Configuration files</a></span></dt><dt><span class="sect1"><a href="#N10189">Implement the server side Service Locator</a></span></dt><dt><span class="sect1"><a href="#N101A6">Test your DAO class with a unit test class</a></span></dt><dt><span class="sect1"><a href="#N101D3">Implement the main class of the server application</a></span></dt><dt><span class="sect1"><a href="#N101E1">Create your first model panel</a></span></dt><dt><span class="sect1"><a href="#N10284">Test the ArtistPanel</a></span></dt></dl></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="N10014"></a>Introduction</h2></div></div></div><p>
+			This tutorial will guide you through the process of creating
+			a Java Client Server Application based on the CRUD
+			application framework. Step by step you will learn how to
+			set up your development environment, define a SQL database,
+			implement entity classes, write user interface classes and
+			finally how glue those parts together using some other
+			frameworks. The tutorial tries to cover the full range of
+			programming a Client Server Application including testing
+			and deployment.
+		</p><p>
+			By following this tutorial you will learn how to develop a
+			fully functional multiuser client server application that
+			stores album, artists and songs in a SQL database. The user
+			interface in the clients will be able to create, read,
+			update and delete those entities. The Album, Artist Song
+			data model is widely spread in the education community.
+			<a class="ulink" href="http://staff.science.uva.nl/~netpeer/teaching/webdb2002/practicum/P2.htm" target="_top">
+				Here is one example.
+			</a>
+		</p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="N1001F"></a>Setting up your environment</h2></div></div></div><div class="orderedlist"><ol type="1"><li><p>
+					Create a new workspace and checkout the following
+					projects from
+					<code class="filename">svn://hulk/bluebrim-dev</code>
+					repository:
+					<table summary="Simple list" border="0" class="simplelist"><tr><td>
+							<code class="filename">
+								svn://hulk/bluebrim-dev/Crud/trunk
+							</code>
+						</td></tr><tr><td>
+							<code class="filename">
+								svn://hulk/bluebrim-dev/CrudClient/trunk
+							</code>
+						</td></tr><tr><td>
+							<code class="filename">
+								svn://hulk/bluebrim-dev/CrudServer/trunk
+							</code>
+						</td></tr><tr><td>
+							<code class="filename">
+								svn://hulk/bluebrim-dev/CrudExample/trunk
+							</code>
+						</td></tr></table>
+				</p><p>
+					The CrudExample contains a working example that can
+					be useful if you run into problems with the
+					tutorial. Its based on a small part of the Isac
+					system and its tested and should work. If it don't
+					you have probably some problems with your
+					environment.
+				</p></li><li><p>
+				Download .NET framework 2.0 from Microsoft and install
+			</p></li><li><p>
+				Download <span class="productname">SQL Server 2005 Express</span>&trade; from Microsoft and install
+				</p><p>- install server and client connectivity pack</p><p>- use mixed authentication mode</p></li><li><p>
+				Enable remote connections for SQL server
+				</p><p>- see http://blogs.msdn.com/sqlexpress/archive/2005/05/05/415084.aspx</p><p>- remember to set a specific port number to use, e.g. 1433</p></li><li><p>
+				Download <span class="productname">Microsoft SQL Server Management Studio Express</span>&trade;
+				</p><p>- Install Microsoft SQL Server Management Studio Express</p><p>- Start Microsoft SQL Server Management Studio Express 
+					   with Sql Server Authentication, 
+					   user name = sa and password = the one you entered at installation</p></li></ol></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="N10069"></a>Create projects in your workspace for the tutorial</h2></div></div></div><p>Create three Java projects in your workspace. The reason for three projects is to reflect the client server tiers in
+		the project structure. By using this project structure its impossible to make references between server and client a mistake
+		that otherwise is discovered first when building.</p><div class="variablelist"><dl><dt><span class="term">
+						CrudTutorial
+					</span></dt><dd><p>
+							This project contains code used on both server and client. Make the project
+							dependent on the Crud project and export the Crud project.
+						</p></dd><dt><span class="term">
+						CrudTutorialServer
+					</span></dt><dd><p>
+							This project contains code used on the server side. Make the project
+							dependent on the CrudServer project.
+						</p></dd><dt><span class="term">
+						CrudTutorialClient
+					</span></dt><dd><p>
+							This project contains code used on the client side. Make the project
+							dependent on the CrudClient project.
+						</p></dd></dl></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="N10081"></a>Create database table</h2></div></div></div><p>
+			Use SQL Server Management Studio Express to create a new
+			database called <code class="filename">crud-tutorial</code>. Create a new table called
+			<code class="filename">Artist</code> with the columns: Id, Name, Biography. Make the Id column an
+			auto sequence primary key. You can design the database with the graphical user interface of SQL Server Management Studio Express.
+		</p><p>One single table will do for now.
+			More tables will be added further on in the tutorial. </p><p>
+		Save the sql script that you created in a file called <code class="filename">crud-tutorial.sql</code> and put the file
+		int the location: <code class="filename">CrudTutorialServer/runtime/install/sql/crud-example.sql</code>. The script should look something
+		like this:
+		</p><pre class="programlisting">
+USE [crud-tutorial]
+GO
+/****** Object:  Table [dbo].[Artist]    Script Date: 07/16/2008 15:36:57 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[Artist](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](50) NULL,
+	[Biography] [varchar](1000) NULL,
+ CONSTRAINT [PK_Artist] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+		</pre></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="N1009D"></a>Create your first entity class</h2></div></div></div><p>Create a class in CrudTutorial project called: <code class="classname">se.bluebrim.crud.tutorial.Artist</code></p><div><img src="images/create-artist-class.jpg"></div><p>The Artist class is used on both server and client and will be used as a data transfer object (DTO) and is therefore 
+		implementing the <code class="classname">Serializable</code> interface. By adding 
+		<pre class="programlisting">
+private static final long serialVersionUID = 1L;
+		</pre> 
+		you get rid of the &ldquo;<span class="quote">The serializable class Artist does not declare a static final serialVersionUID field of type long</span>&rdquo; warning.
+		</p><p>Without the <code class="code">serialVersionUID</code> field the compiler will generate one for you. The problem with that is that the Eclipse built in
+		compiler use a different algorithm from the <code class="filename">javac</code> compiler in the JDK. That makes it impossible to run a client inside Eclipse
+		against a server built with <code class="filename">javac</code></p><p>Add instance variables for id, name and biography and generate constructor and getters and setters using Eclipse.</p><div><img src="images/generate-constructor-using-fields.jpg"></div><p></p><div><img src="images/generate-getters-setters.jpg"></div><p>
+		All entity classes in a CRUD
+		application must implement the Observable pattern. Most of it is inherited from super class but every
+		set method except the <code class="code">setId</code> method must be implemented in a certain way. This could of course be done by AOP but its not that
+		hard to to by hand. Here is an example of a set method:</p><pre class="programlisting">
+public void setName(String name)
+{
+	if (!equals(name, this.name)) <a name="c1"></a><img border="0" alt="1" src="images/callouts/1.png">
+	{
+		this.name = name;
+		fireValueChanged("name", this.name); <a name="c2"></a><img border="0" alt="2" src="images/callouts/2.png">
+	}
+}		
+		</pre><div class="calloutlist"><table summary="Callout list" border="0"><tr><td align="left" valign="top" width="5%"><p><a href="#c1"><img border="0" alt="1" src="images/callouts/1.png"></a> </p></td><td align="left" valign="top"><p>The not equals test is important to stop infinite loops that can arise when you are dealing with intense listener programming.</p></td></tr><tr><td align="left" valign="top" width="5%"><p><a href="#c2"><img border="0" alt="2" src="images/callouts/2.png"></a> </p></td><td align="left" valign="top"><p>By calling <code class="code">fireValueChanged</code> listeners of Artists gets notified when the Artists name is changed.</p></td></tr></table></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="N100DF"></a>Implement an equals method</h3></div></div></div><p>The superclass <code class="classname">AbstractDto</code> throws an exception in the <code class="code">equals</code> method to point out the importance
+		of implementing an <code class="code">equals</code> method. In a distributed environment its possible to end up with two instances of 
+		<code class="classname">Artist</code> that represent the same artist. By implementing an <code class="code">equals</code> method based on the database id they will be
+		considered as equal which is nessecary for several vital functions in the CRUD framework</p><p>Here is an example of an <code class="code">equals</code> method for your <code class="classname">Artist</code> class:</p><pre class="programlisting">
+@Override
+public boolean equals(Object obj)
+{
+	return obj == null ? false : id == ((Artist) obj).id;
+}
+		</pre></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="N100FE"></a>Implement the ArtistDao</h2></div></div></div><p>
+			You should implement an ArtistDao that consist of one interface
+			and two implementations. One implementation works against
+			the database and the other implementation is a stub
+			implementation that only stores Artists in the memory and
+			can be used for testing. You can skip the stub
+			implementation for now since we will get back to it further on in
+			the tutorial.
+		</p><p>
+			Create the interface
+			<code class="classname">
+				se.bluebrim.crud.tutorial.remote.ArtistDao
+			</code>
+			in the
+			<code class="code">CrudTutorial</code>
+			project and create methods for getting a list of artists,
+			adding a new artist, changing an artist and removing an
+			artist. Thanks to the Spring framework we can publish the
+			interface as a Java RMI remote interface without extend the
+			<code class="classname">Remote</code>
+			interface which is a good thing since we are not forced to
+			throw checked exception from our interface methods. Your
+			interface should look something like this:
+		</p><pre class="programlisting">
+
+	package se.bluebrim.crud.tutorial.remote;
+	
+	import java.util.List;
+	
+	import se.bluebrim.crud.tutorial.Artist;
+	
+	public interface ArtistDao
+	{
+		public List&lt;Artist&gt; getArtists();
+		public int addArtist(Artist artist);
+		public void changeArtist(Artist artist);
+		public void removeArtist(int artistId);
+	}
+		
+		</pre><p>
+		Create a class called <code class="classname">se.bluebrim.crud.tutorial.server.ArtistDaoImpl</code> in the <code class="code">CrudTutorialServer</code> project. This
+		class is a pure server class never exposed outside the server. The class should implement the <code class="classname">ArtistDao</code> interface and
+		do extend <code class="classname">AbstractJdbcDao</code>.
+		</p><p>Study the Spring JDBC framework and try whats going on in the programlisting below. Copy the code to your <code class="classname">ArtistDaoImpl</code></p><pre class="programlisting">
+
+package se.bluebrim.crud.tutorial.server;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+
+import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
+import org.springframework.transaction.annotation.Transactional;
+
+import se.bluebrim.crud.server.AbstractJdbcDao;
+import se.bluebrim.crud.tutorial.Artist;
+import se.bluebrim.crud.tutorial.remote.ArtistDao;
+
+public class ArtistDaoImpl extends AbstractJdbcDao implements ArtistDao
+{
+	
+	private ParameterizedRowMapper&lt;Artist&gt; artistMapper = 
+					new ParameterizedRowMapper&lt;Artist&gt;() 
+	{
+		@Override
+		@Transactional(rollbackFor=Exception.class)
+		public Artist mapRow(ResultSet rs, int rowNum) throws SQLException 
+		{
+			Artist artist = new Artist(
+				rs.getInt("Id"),
+				rs.getString("Name"),
+				rs.getString("Biography")				      			      
+				);
+			return artist;
+		}
+	};
+
+	@Override
+	@Transactional(rollbackFor=Exception.class)
+	public List&lt;Artist&gt; getArtists()
+	{
+		String sql = "SELECT * FROM Artist";		
+		return jdbcTemplate.query(sql, artistMapper);		
+	}
+		
+	@Override
+	@Transactional(rollbackFor=Exception.class)
+	public int addArtist(Artist artist)
+	{
+		int artistId = 0;
+		String sql = "INSERT INTO Artist" + 
+		" (Name, Biography)" + 
+		"  VALUES(?, ?) ";		
+		jdbcTemplate.update(sql, artist.getName(),
+										artist.getBiography()
+										);
+		//Now get the maximum value of the Id
+		sql = "SELECT MAX(Id) FROM Artist";
+		artistId =  jdbcTemplate.queryForInt(sql);
+		return artistId;
+	}
+		
+	@Override
+	@Transactional(rollbackFor=Exception.class)
+	public void changeArtist(Artist artist)
+	{
+		String sql = "UPDATE Artist " +
+		             " SET Name = ?, Biography = ?" +
+		             " WHERE  Id = ?  ";	
+		jdbcTemplate.update(sql, artist.getName(),
+				artist.getBiography()
+				);		
+	}
+	
+	@Override
+	@Transactional(rollbackFor=Exception.class)
+	public void removeArtist(int artistId)
+	{
+		String sql = "DELETE FROM Artist WHERE  Id = ?";
+		jdbcTemplate.update(sql, artistId);
+	}
+
+	@Override
+	protected int getMaxNumberOfRowsFromDb()
+	{
+		return 20000;
+	}
+}
+		
+</pre></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="N10126"></a>Configuration files</h2></div></div></div><p>
+		The Crud framework use a minimum of configuration from files. We belive in expressing as much as possible as Java code.
+		The main reason for the configuration files we do have is testability. Without changing is single line of code or configuration
+		file you can run a Crud application inside Eclipse with your personal local database or as a deployed application connecting to
+		a remote production database. 
+		</p><p>You should create three configuration files:</p><div class="variablelist"><dl><dt><span class="term">
+						<code class="filename">server.xml</code>
+					</span></dt><dd><p>
+							Is the configuration file of the Spring framework. It specifies several things:
+							<div class="itemizedlist"><ul type="disc"><li><p>Information of the database connection. Database URL, driver to use, login information etc</p></li><li><p>Configuration of transactional behavior based on annotations as you can see in the <code class="classname">ArtisDaoImpl</code></p></li><li><p>Definition of an interceptor that catch exceptions in remote calls before they reach the client</p></li><li><p>A list of all interfaces that should be exported as RMI interfaces</p></li><li><p>A list of the implementing of the interfaces that are requested from the Spring IoC</p></li></ul></div>
+							Some values are expressed as placeholder and will be replaced with values from the <code class="filename">server.properties</code> file
+						</p></dd><dt><span class="term">
+						<code class="filename">server.properties</code>
+					</span></dt><dd><p>
+							Properties read by the server application. Some properties contains values for the place holders in <code class="filename">server.xml</code> file.
+						</p></dd><dt><span class="term">
+						<code class="filename">log4j.properties</code>
+					</span></dt><dd><p>
+							Contains the logging settings used in a production environment.
+						</p></dd></dl></div><p>Copy the files from the CrudExample project and change accordingly.</p><p>All configuration files are read using a class loader that is they must be in the class path. But this makes it possible to
+		implement a simple override mechanism. Its possible to override the properties in the <code class="filename">log4j.properties</code> file by have an additional
+		<code class="filename">log4j.properties</code> file in a directory 
+		that precedes the runtime directory in the class path. The <code class="filename">server.properties</code> works the same way but with a little twist.</p><p>To enable individual properties for each developer the server.properties can be overridden by a file that is called:
+		<code class="filename">server.[username].properties</code>. Individual properties is handy for connecting to individual test databases and
+		for defining mail addresses for applications that sends mail etc</p><p>Since the tutorial is based on a local personal database there is no need for overriding the <code class="filename">server.properties</code>.
+		But you should override some properties in <code class="filename">log4j.properties</code> file to get the logging 
+		in the console instead of in logging files. You could also increase the logging level if you like.</p><p>See how its done in the CrudExample projects.</p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="N10189"></a>Implement the server side Service Locator</h2></div></div></div><p>Create a subclass to <code class="classname">ServiceLocatorTemplate</code> called <code class="classname">ServiceLocator</code>
+	and implement one static get method for each DAO class you have in your application. Put the class in the CrudTutorial project
+	to enable usage from both server and client. In this tutorial we only have one DAO so far
+	which means that the <code class="classname">ServiceLocator</code> will look like this:</p><pre class="programlisting">
+package se.bluebrim.crud.tutorial;
+
+import se.bluebrim.crud.ServiceLocatorTemplate;
+import se.bluebrim.crud.tutorial.remote.ArtistDao;
+
+public class ServiceLocator extends ServiceLocatorTemplate
+{	                 
+	public static ArtistDao getArtistDao()
+	{
+		return (ArtistDao)ctx.getBean("artistDao"); <a name="bean-name-co"></a><img border="0" alt="1" src="images/callouts/1.png">
+	}
+}
+	</pre><div class="calloutlist"><table summary="Callout list" border="0"><tr><td align="left" valign="top" width="5%"><p><a href="#bean-name-co"><img border="0" alt="1" src="images/callouts/1.png"></a> </p></td><td align="left" valign="top"><p>The name you enter here should be found in the corresponding bean element in the <code class="filename">server.xml</code> file </p></td></tr></table></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="N101A6"></a>Test your DAO class with a unit test class</h2></div></div></div><p>
+	Create a new source folder in the CrudTutorialServer project called <code class="filename">src-test</code>.
+	Add the JUnit4 library to the class path of the project:
+	</p><div><img src="images/add-junit-library.jpg"></div><p>Make sure the <code class="filename">runtime</code> folder and the <code class="filename">launch/dev-config</code> 
+	folder are included in the class path and in the correct order. </p><p>The Crud framework has no binding to any specific SQL database and 
+	do not include any JDBC driver jar. That has to be included
+	in every Crud based server application. Copy the <code class="filename">jtds.jar</code> 
+	from the CrudExample project and include it in the class path. The property dialog of the
+	Eclipse project should look now like this:</p><div><img src="images/server-class-path.jpg"></div><p>
+	Create a <code class="classname">se.bluebrim.crud.tutorial.server.ArtistDaoTest</code> in the scr-test folder.
+	Copy the code from <code class="classname">UserDaoTest</code> in the CrudExampleProject and make nessecary changes.
+	Run it as a JUnit test. The logging should appear in the console window thanks to the additional 
+	<code class="filename">log4j.properties</code> file you put in <code class="filename">launch/dev-config</code> folder.
+	Add more test methods to cover all methods in your DAO class.
+	</p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="N101D3"></a>Implement the main class of the server application</h2></div></div></div><p>
+		Create a class called <code class="classname">se.bluebrim.crud.tutorial.server.CrudTutorialServer</code> 
+		Copy the code from <code class="classname">CrudExampleServer</code> in the CrudExampleProject and make nessecary changes.
+		The <code class="code">configureAndWatch</code> call starts a very nice feature that makes it possible to change logging properties
+		in runtime. If your server behaves strange you can increase the logging level and hopefully see what's going on.		
+	</p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="N101E1"></a>Create your first model panel</h2></div></div></div><p>Now its time to start with the client side of your application. Panels are very central things in Crud client application.
+	A panel is responsible for displaying and editing the properties of a models of a certain type.
+	Panels contains a set of Swing components and each component has an adapter that defines which 
+	property in the model the component should be bound to. The Crud framework uses the Esox binding framework for this purpose.
+	The components and the adapters are instantiated in the constructor of the panel. One nice feature of panels in the Crud framework
+	is that you can instantiate them without having a model. Instead you provide a <code class="interfacename">ModelOwnerIF</code> an object
+	that is assigned with models and is observable in that aspect.
+	</p><p>
+		In your TutorialClient project create a class called <code class="classname">se.bluebrim.crud.tutorial.client.ArtistPanel</code>
+		that extends DirtyPredicatePanel. There is no abstract methods that must be overridden
+		but you will benefit from following some convention for organizing the code.
+	</p><p>
+		Create a default constructor and add the following method calls:
+		<pre class="programlisting">
+initComponents();
+arrangeLayout();
+bindComponents();
+setRenderers();		
+		</pre>
+		Let Eclipse generate stubs for you.
+	</p><p>
+		Create an instance variable for each Swing component that will be bound to a property in the Artist object.
+		In this case there will be only two components:
+		<pre class="programlisting">
+private JTextField name;
+private JTextPane biography;	
+		</pre>
+	</p><p>
+		Create the Swing components in the <code class="methodname">initComponents</code> by
+		calling convenience methods in the superclass:
+		<pre class="programlisting">
+name= createInputLimitedTextField(50); <a name="maxSize1"></a><img border="0" alt="1" src="images/callouts/1.png">
+biography = createInputLimitedTextPane(1000); <a name="maxSize2"></a><img border="0" alt="2" src="images/callouts/2.png">			
+		</pre>
+		<div class="calloutlist"><table summary="Callout list" border="0"><tr><td align="left" valign="top" width="5%"><p><a href="#maxSize1"><img border="0" alt="1" src="images/callouts/1.png"></a> <a href="#maxSize2"><img border="0" alt="2" src="images/callouts/2.png"></a> </p></td><td align="left" valign="top"><p>The limitation you enter here should correspond to ones in the database</p></td></tr></table></div>
+		<div><img src="images/artist-db-design.jpg"></div>
+	</p><p>
+		To handle multiple languages you must add a <code class="classname">ResourceBundle</code> to your class.
+		Declare a static variable as follows:
+		<pre class="programlisting">
+private final static ResourceBundle bundle = ResourceBundle.getBundle("se.bluebrim.crud.tutorial.client.Client");			
+		</pre>
+		In same folder as your class resides create a property file for each language you like to support.
+		<div><img src="images/resource-bundle-files.jpg"></div>
+	</p><p>
+		Put the following code lines in the <code class="methodname">arrangeLayout</code> method:
+		<pre class="programlisting">
+setLayout(new BorderLayout()); <a name="BorderLayout"></a><img border="0" alt="1" src="images/callouts/1.png">
+FormPanel form = new FormPanel(); <a name="FormPanel"></a><img border="0" alt="2" src="images/callouts/2.png">
+form.addFormRow(new JLabel(bundle.getString("artist.name")), name); <a name="bundle1"></a><img border="0" alt="3" src="images/callouts/3.png">
+form.addFormRow(new JLabel(bundle.getString("artist.biography")), biography); <a name="bundle2"></a><img border="0" alt="4" src="images/callouts/4.png">
+form.adjustLabelWidthsToLargest(); <a name="adjustLabelWidthsToLargest"></a><img border="0" alt="5" src="images/callouts/5.png">
+add(form, BorderLayout.CENTER);	<a name="addToContainer"></a><img border="0" alt="6" src="images/callouts/6.png">			
+		</pre>
+		<div class="calloutlist"><table summary="Callout list" border="0"><tr><td align="left" valign="top" width="5%"><p><a href="#BorderLayout"><img border="0" alt="1" src="images/callouts/1.png"></a> </p></td><td align="left" valign="top"><p>All panels that are going to be used as a detail panel in a master detail panel 
+				must have a <code class="classname">BorderLayout</code> as layout manager since a Save button will be injected in the south region
+				of the <code class="classname">BorderLayout</code></p></td></tr><tr><td align="left" valign="top" width="5%"><p><a href="#FormPanel"><img border="0" alt="2" src="images/callouts/2.png"></a> </p></td><td align="left" valign="top"><p>
+					The <code class="classname">FormPanel</code> is just a convenient way to arrange components to a form. 
+					The <code class="classname">FormPanel</code> only handles layout and has no other features.
+				</p></td></tr><tr><td align="left" valign="top" width="5%"><p><a href="#bundle1"><img border="0" alt="3" src="images/callouts/3.png"></a> <a href="#bundle2"><img border="0" alt="4" src="images/callouts/4.png"></a> </p></td><td align="left" valign="top"><p>
+					Add artist.name and artist.biography as entries in your language properties files
+				</p></td></tr><tr><td align="left" valign="top" width="5%"><p><a href="#adjustLabelWidthsToLargest"><img border="0" alt="5" src="images/callouts/5.png"></a> </p></td><td align="left" valign="top"><p>
+					By making this final call to the <code class="classname">FormPanel</code> you get nice columns i the form.
+				</p></td></tr></table></div>				
+	</p><p>
+		In the <code class="methodname">createBindings</code> methods you should put code that connects the Swing components
+		with the properties of the panel model in this case the properties of the <code class="classname">Artist</code> class:
+		<pre class="programlisting">
+new TextFieldAdapter(name, this,<a name="binding1"></a><img border="0" alt="1" src="images/callouts/1.png"> Artist.class, "getName", "setName", String.class, null <a name="binding2"></a><img border="0" alt="2" src="images/callouts/2.png">);
+TextFieldFocusHandler.add( name );<a name="binding3"></a><img border="0" alt="3" src="images/callouts/3.png">
+new TextPaneAdapter(biography, this, Artist.class, "getBiography", "setBiography", String.class);		
+		</pre>
+		<div class="calloutlist"><table summary="Callout list" border="0"><tr><td align="left" valign="top" width="5%"><p><a href="#binding1"><img border="0" alt="1" src="images/callouts/1.png"></a> </p></td><td align="left" valign="top"><p>The two first arguments are swing component and a <code class="interfacename">ModelOwnerIF</code>.
+				In this case the model owner is the panel it self. The adapter listen to the model owner and gets notified
+				when a model is assigned to the panel. </p></td></tr><tr><td align="left" valign="top" width="5%"><p><a href="#binding2"><img border="0" alt="2" src="images/callouts/2.png"></a> </p></td><td align="left" valign="top"><p>The remaining arguments are used to construct accessors to the property. The adaptor uses reflection
+				for that purpose </p></td></tr><tr><td align="left" valign="top" width="5%"><p><a href="#binding3"><img border="0" alt="3" src="images/callouts/3.png"></a> </p></td><td align="left" valign="top"><p>The adaptor listen to the swing component and gets notified when the enters data in the component.
+				But a focus lost in text field don't won't generate that notification. This line fix that problem.</p></td></tr></table></div>
+	</p><p>
+		Leave the <code class="methodname">setRenderers</code> method empty for the time being.
+	</p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="N10284"></a>Test the ArtistPanel</h2></div></div></div><p>
+		
+		</p></div></div></body></html>
