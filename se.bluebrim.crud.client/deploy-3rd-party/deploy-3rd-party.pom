@@ -1,0 +1,23 @@
+<!-- Use this file together with mvn-upload-artifact.launch to upload third party jars
+to the Maven repository under the repo folder in Subversion of the JFreeCrud project.
+See: 
+1) https://wagon-svn.dev.java.net/ Using Wagon-svn with deploy:deploy-file
+2) http://maven.apache.org/guides/mini/guide-3rd-party-jars-remote.html
+-->
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>dummy</groupId>
+  <artifactId>wagn-svn-deploy-pom</artifactId>
+  <packaging>pom</packaging>
+  <version>1</version>
+
+  <build>
+    <extensions>
+      <extension>
+        <groupId>org.jvnet.wagon-svn</groupId>
+        <artifactId>wagon-svn</artifactId>
+        <version>1.9</version>
+      </extension>
+    </extensions>
+  </build>
+</project>

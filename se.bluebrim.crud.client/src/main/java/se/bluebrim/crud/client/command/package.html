@@ -1,0 +1,164 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+<head>
+</head>
+<body bgcolor="white">
+
+<a href=http://www.theserverside.com/news/thread.tss?thread_id=43820>Effective Java Exceptions</a> 
+This article describes how the exception handling in the CRUD framework is done.
+One additional complexity in a client server system is that you have to be carful
+with the exceptions you serialize so that they also exist on the client.
+As a consequence there are two fault barriers. One at the client side and one at the server side.
+The server side fault barrier catch all faults and log them to the server log. After that it throws
+a new exception WITHOUT wrapping the old one. The reason is:
+ 1. Avoid serialization problems with wrapped exceptions that do not exist at client side.
+ 2. It's no good to display server side stack traces on the client. They should be kept at server side.
+
+Below is one of the good postings about this article:
+
+<h2>Re: Effective Java Exceptions</h2>
+People who defend checked exceptions claim that they should represent
+recoverable errors. Fine. Except for one thing: whether the particular
+error in a particular application is recoverable or not is defined by
+the business requirements of that application! The same type of error
+may require an alternative action in one application, while treated as a
+generic fault by another. Expecting the compiler to tell you what to do
+with an error is wrong – and, well, incompetent! Not to mention: over
+90% of all errors in most applications are (or should be) treated as
+non-recoverable. Gosling’s unbelievable suggestion that checked
+exceptions were designed to create a “creepy” feeling that something may
+go wrong is mind-boggling! Every junior software engineer should
+understand that “something” might ALWAYS go wrong in a piece of
+software! Checked exceptions are creating just the opposite effect:
+developers now feel completely “safe” and do NOTHING if the compiler
+does not remind them of an exception! Handling a checked exception is
+never enough because any such exception generally represents only a
+subset of all possible errors. People have forgotten – and many never
+have learnt – that error handling must be designed for, that it is an
+essential part of the application’s architecture and design. Instead, it
+has become an afterthought for most Java developers.
+<br>
+<br>
+People often ask: "Without checked exceptions, how do I know which error
+to expect/handle?" This question reflects the most common misconception
+about error handling. You do not need to know anything other than what
+is stated in the business requirements for your application. Everything
+else should be treated as "something bad that really wasn't meant to
+happen per design." This makes the general error handling strategy very
+simple! (Yes, there has to be a STRATEGY.) Here are the simple tasks
+that the developer/application designer must face when designing the
+high-level layout for the application:
+<br>
+<br>
+1. Determine the location for the top-level handler that will catch all
+errors that bubble up to it from within the application/module. This is
+usually a "try/catch (Throwable t)/finally" construct around the process
+that implements the main task of your application or component/module.
+Call it a “fault barrier”, or whatever you want…
+<br>
+<br>
+2. Get familiar with the business requirements (funny that I should
+mention that! :)) and single out the legitimate use cases where an error
+should be caught and handled before it reaches the above-mentioned
+top-level handler. Such handling will mean implementing an alternative
+action in response to the error. Such cases will represent your business
+errors. Note that since these errors are documented in your own business
+requirements, shame on you if you need the compiler to remind you about
+them! ;) It doesn’t matter if your business analyst did not supply you
+with well-stated requirements. You should have a set of well-defined
+design concepts (provided by someone else or gathered by yourself before
+you start coding.) You must design for all those alternative actions. In
+most cases, you won’t even need to distinguish between the types of
+errors occurred, just catch all possible exceptions in that API and
+redirect your process accordingly. In rare cases, yes, you might have to
+investigate the API a bit deeper to look for a more specific exception
+type. For example, you may want to distinguish the Spring's
+DataRetrievalFailureException from a NullPointerException. The former
+indicates that your data was not retrieved from the database; the latter
+indicates something totally unacceptable that has nothing to do with the
+business case. But such details are easy to uncover - if you look for
+them when following nothing but your business requirements. What
+developers must remember is that they absolutely must design for error
+handling. Instead, most Java programmers today thoughtlessly catch just
+about anything that the compiler points at, put wrappers around
+wrappers, re-throw useless exceptions but chop-off valuable stack
+traces, log the same error dozens of times at each step in the call
+stack, etc.
+<br>
+<br>
+Fortunately, in practice, most applications have very few cases of the
+distinct legitimate "business" cases mentioned in step 2.
+<br>
+<br>
+3. Ensure that each error propagates freely from the source of the error
+to the only dedicated handler that is designed to handle it, the handler
+that has the sufficient application context to handle the error
+properly. Under no circumstances, the error should be caught and
+tinkered with before it reaches that handler.
+<br>
+<br>
+4. When some (3rd party/JDK) code throws a checked exception, catch it
+in your API, and since, most likely, you don’t want to handle it
+immediately at the source of the error, wrap it inside your custom RT
+exception and re-throw so it can freely propagate to the dedicated (by
+design) handler w/o polluting the rest of your code on its way.
+<br>
+<br>
+5. When re-throwing exceptions, always nest the cause exception within
+the new exceptions. Never discard the original error.
+<br>
+6. Always log the exception – with the full stack trace - when the
+dedicated handler ultimately catches it. And log it once.
+<br>
+<br>
+Run-time exceptions were designed to ensure all of that. Most
+importantly, they were designed to allow developers not to deal with
+errors at their immediate source but rather at the central point where
+the application was designed to handle them, while providing the
+developer with the complete stack trace information between the error
+source and the handler. The fact that the original JDK implementations –
+all the way up to 1.4 - provided no nesting functionality in the
+Exception class while forcing developers to deal with exceptions at the
+very source if each error - demonstrates how ill-conceived the whole
+idea was in its core from the beginning.
+<br>
+<br>
+Mixing checked and unchecked exceptions, as most people suggest, is a
+bad idea. As I have said, handling the specific checked exception in
+response to the compiler's complaint is never enough. If you stop there,
+you are guaranteed to miss something that will blow up your application.
+Therefore, you still have to do everything described above in 1 - 6,
+except your code is now polluted with tons of specific (most certainly,
+unnecessary) handlers that may interrupt an essential exception on its
+way to the one and only correct handler, which inevitably results in the
+loss of error information. If we can't reliably mix RT and checked
+exceptions, and we don't like RT exceptions, can we indeed make all
+exceptions checked? The answer is, most certainly, NO. There is a reason
+why the authors of Java didn't do that in the first place. They just
+couldn't. That would have made the language totally unusable. Every
+method would have to declare countless exceptions in its signature, and
+every method would have to deal with the countless checked exceptions
+thrown by the code inside. What for? Just to create that “creepy”
+feeling Gosling is so proud about?
+<br>
+<br>
+Finally, look at Sun's EJB3!!! Wow! No checked exceptions there! A
+silent admission of the mistake? But how many "average" programmers have
+noticed? There’s nothing wrong with making mistakes, and no one has ever
+claimed that Java was perfect. Many things have been improved and
+corrected in the language since its first release. It is time for Sun to
+come out and start helping the industry to recover from this terrible
+experiment that has resulted in nothing less than millions of
+programmers who are clueless about error-handling! That, in turn, costs
+companies hundreds of millions of wasted dollars. Sadly, no matter how
+many of the brightest people in the industry have spoken against checked
+exceptions (Rod Johnson, Bruce Eckel, Anders Hejlsberg, to name a few),
+it has had almost no impact on the programming “masses.” This forum just
+proves that.
+
+
+<br />
+<br />
+
+</body>
+</html>
