@@ -20,7 +20,7 @@ import se.bluebrim.crud.client.command.ExceptionHandler;
 import se.bluebrim.crud.client.command.ProgressVisualizer;
 import se.bluebrim.crud.client.command.WaitCursorFrame;
 
-public class AbstractPanelTest
+public abstract class AbstractPanelTest
 {
 
 	public AbstractPanelTest()
