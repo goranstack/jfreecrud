@@ -6,6 +6,11 @@
 	<name>CRUD framework example application</name>
 	<version>0.0.1-SNAPSHOT</version>
 	<description>A very small example application based on the CRUD framework.</description>
+	<parent>
+		<artifactId>jfreecrud-parent</artifactId>
+		<groupId>se.bluebrim</groupId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
 	<dependencies>
 		<dependency>
 			<groupId>net.sourceforge.jtds</groupId>
@@ -30,48 +35,4 @@
 			<version>1.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-				</configuration>
-			</plugin>
-			<plugin>
-				<artifactId>maven-source-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>attach-sources</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-
-		</plugins>
-
-		<extensions>
-			<extension>
-				<groupId>org.jvnet.wagon-svn</groupId>
-				<artifactId>wagon-svn</artifactId>
-				<version>1.9</version>
-			</extension>
-		</extensions>
-	</build>
-
-	<!--
-		Found at Don Brown's Weblog:
-		http://www.jroller.com/mrdon/entry/find_of_the_day_wagon
-	-->
-	<distributionManagement>
-		<repository>
-			<uniqueVersion>false</uniqueVersion>
-			<id>googlecode-jfreecrud</id>
-			<url>svn:https://jfreecrud.googlecode.com/svn/repo</url>
-		</repository>
-	</distributionManagement>
 </project>
