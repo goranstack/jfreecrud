@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><project>
+	<description>The server part of the CRUD example</description>
+  <parent>
+    <artifactId>jfreecrud-parent</artifactId>
+    <groupId>se.bluebrim</groupId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>se.bluebrim</groupId>
+  <artifactId>se.bluebrim.crud.example.server</artifactId>
+  <name>CRUD example server</name>
+  <version>0.0.1-SNAPSHOT</version>
+  <dependencies>
+    <dependency>
+    	<groupId>se.bluebrim</groupId>
+    	<artifactId>se.bluebrim.crud.server</artifactId>
+    	<version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+    	<groupId>junit</groupId>
+    	<artifactId>junit</artifactId>
+    	<version>4.7</version>
+    </dependency>
+    <dependency>
+    	<groupId>se.bluebrim</groupId>
+    	<artifactId>se.bluebrim.crud.example</artifactId>
+    	<version>0.0.1-SNAPSHOT</version>
+    </dependency>
+  </dependencies>
+</project>
