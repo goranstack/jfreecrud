@@ -1,37 +1,70 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>se.bluebrim.crud.example.client</groupId>
-  <artifactId>se.bluebrim.crud.example.client</artifactId>
-  <name>CRUD Example Client</name>
-  <version>0.0.1-SNAPSHOT</version>
-  <description>The client part of the CRUD example</description>
-  <parent>
-  	<artifactId>jfreecrud-parent</artifactId>
-  	<groupId>se.bluebrim</groupId>
-  	<version>0.0.1-SNAPSHOT</version>
-  </parent>
-  <dependencies>
-  	<dependency>
-  		<groupId>se.bluebrim</groupId>
-  		<artifactId>se.bluebrim.crud.example</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
-  	</dependency>
-  	<dependency>
-  		<groupId>se.bluebrim</groupId>
-  		<artifactId>se.bluebrim.crud.client</artifactId>
-  	</dependency>
-  	<dependency>
-  		<groupId>se.bluebrim</groupId>
-  		<artifactId>se.bluebrim.crud.client</artifactId>
-  		<type>test-jar</type>
-  		<scope>test</scope>
-  	</dependency>
-  	<dependency>
-  		<groupId>se.bluebrim</groupId>
-  		<artifactId>se.bluebrim.crud.example.server</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
-  		<type>test-jar</type>
-  		<scope>test</scope>
-  	</dependency>
-  </dependencies>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>se.bluebrim.crud.example.client</groupId>
+	<artifactId>se.bluebrim.crud.example.client</artifactId>
+	<name>CRUD Example Client</name>
+	<version>0.0.1-SNAPSHOT</version>
+	<description>The client part of the CRUD example</description>
+	<parent>
+		<artifactId>jfreecrud-parent</artifactId>
+		<groupId>se.bluebrim</groupId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<dependencies>
+		<dependency>
+			<groupId>se.bluebrim</groupId>
+			<artifactId>se.bluebrim.crud.example</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>se.bluebrim</groupId>
+			<artifactId>se.bluebrim.crud.client</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>se.bluebrim</groupId>
+			<artifactId>se.bluebrim.crud.client</artifactId>
+			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>se.bluebrim</groupId>
+			<artifactId>se.bluebrim.crud.example.server</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<!--
+				http://www.jroller.com/wireframe/entry/new_maven_webstart_plugin
+			-->
+			<plugin>
+				<groupId>com.codecrate</groupId>
+				<artifactId>webstart-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>generate-jnlp</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<mainClass>se.bluebrim.crud.example.client.CrudExampleClient</mainClass>
+					<allPermissions>false</allPermissions>
+					<codebase>.</codebase>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<repositories>
+		<repository>
+			<id>codecrate-repository</id>
+			<name>Codecrate Repository</name>
+			<url>http://maven.codecrate.com/</url>
+		</repository>
+	</repositories>
+
 </project>
