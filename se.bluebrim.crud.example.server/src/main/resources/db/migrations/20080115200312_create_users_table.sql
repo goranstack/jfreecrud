@@ -8,5 +8,5 @@ CREATE TABLE User (
 	Email varchar(50) NULL,
 	Phone varchar(20) NULL,
 	Mobile varchar(20) NULL,
-	Role int NOT NULL DEFAULT (0)
+	Role int DEFAULT 0 NOT NULL 
 );

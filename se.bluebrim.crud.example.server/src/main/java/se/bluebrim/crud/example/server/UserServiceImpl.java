@@ -39,7 +39,7 @@ public class UserServiceImpl extends AbstractJdbcDao implements UserService
 	@Transactional(rollbackFor=Exception.class)
 	public List<User> getUsers()
 	{
-		String sql = "SELECT * FROM IP_User";		
+		String sql = "SELECT * FROM User";		
 		return jdbcTemplate.query(sql, userMapper);		
 	}
 		
@@ -48,7 +48,7 @@ public class UserServiceImpl extends AbstractJdbcDao implements UserService
 	public int addUser(User user)
 	{
 		int userId = 0;
-		String sql = "INSERT INTO IP_User" + 
+		String sql = "INSERT INTO User" + 
 		" (UserName, Password, Name, Email, Phone, Mobile, Role)" + 
 		"  VALUES(?, ?, ?, ?, ?, ?, ?) ";		
 		jdbcTemplate.update(sql, user.getUsername(),
@@ -60,7 +60,7 @@ public class UserServiceImpl extends AbstractJdbcDao implements UserService
 										user.getRole().ordinal()
 										);
 		//Now get the maximum value of the Id
-		sql = "SELECT MAX(Id) FROM IP_User";
+		sql = "SELECT MAX(Id) FROM User";
 		userId =  jdbcTemplate.queryForInt(sql);
 		return userId;
 	}
@@ -69,7 +69,7 @@ public class UserServiceImpl extends AbstractJdbcDao implements UserService
 	@Transactional(rollbackFor=Exception.class)
 	public void changeUser(User user)
 	{
-		String sql = "UPDATE IP_User " +
+		String sql = "UPDATE User " +
 		             " SET UserName = ?, Password = ?, Name = ?, Email = ?, Phone = ?, Mobile = ?, Role = ? " +
 		             " WHERE  Id = ?  ";	
 		jdbcTemplate.update(sql, user.getUsername(),
@@ -87,7 +87,7 @@ public class UserServiceImpl extends AbstractJdbcDao implements UserService
 	@Transactional(rollbackFor=Exception.class)
 	public void removeUser(int userId)
 	{
-		String sql = "DELETE FROM IP_User WHERE  Id = ?";
+		String sql = "DELETE FROM User WHERE  Id = ?";
 		jdbcTemplate.update(sql, userId);
 	}
 
