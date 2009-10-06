@@ -40,7 +40,7 @@ public class CrudExampleClient
 	public CrudExampleClient()
 	{
 		// Initialize Spring framework
-		ServiceLocator.init("client.xml");
+		ServiceLocator.init("application-context.xml");
 		DefaultCommand.setDefaultProgressVisualizer(new ProgressVisualizer(){
 
 			@Override

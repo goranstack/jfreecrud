@@ -14,7 +14,7 @@
 	
 	<!-- Services that are provided remotely by the server -->
 	<bean id="userService" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
-		<property name="serviceUrl" value="rmi://${server.name}:${server.port}/crudUserService"/>
+		<property name="serviceUrl" value="rmi://localhost:1099/crudUserService"/>
 		<property name="serviceInterface" value="se.bluebrim.crud.example.remote.UserService"/>
 	</bean>
 		
