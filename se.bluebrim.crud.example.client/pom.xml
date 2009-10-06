@@ -5,11 +5,21 @@
   <name>CRUD Example Client</name>
   <version>0.0.1-SNAPSHOT</version>
   <description>The client part of the CRUD example</description>
+  <parent>
+  	<artifactId>jfreecrud-parent</artifactId>
+  	<groupId>se.bluebrim</groupId>
+  	<version>0.0.1-SNAPSHOT</version>
+  </parent>
   <dependencies>
   	<dependency>
   		<groupId>se.bluebrim</groupId>
   		<artifactId>se.bluebrim.crud.example</artifactId>
   		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>se.bluebrim</groupId>
+  		<artifactId>se.bluebrim.crud.client</artifactId>
+  		<version>1.0.1-SNAPSHOT</version>
   	</dependency>
   </dependencies>
 </project>
