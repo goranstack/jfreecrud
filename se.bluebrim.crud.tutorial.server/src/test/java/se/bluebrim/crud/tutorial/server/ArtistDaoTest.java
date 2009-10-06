@@ -18,8 +18,8 @@ public class ArtistDaoTest
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception
 	{
-		Resource[] overridingFiles = {new ClassPathResource("server.properties")};
-		ServiceLocator.init("server.xml", overridingFiles);
+		Resource[] overridingFiles = {new ClassPathResource("application-context.properties")};
+		ServiceLocator.init("application-context.xml", overridingFiles);
 	}
 
 	@After

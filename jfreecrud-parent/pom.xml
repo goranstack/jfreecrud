@@ -60,6 +60,42 @@
 			<url>http://esox.googlecode.com/svn/repo</url>
 		</repository>
 	</repositories>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>se.bluebrim</groupId>
+				<artifactId>se.bluebrim.crud</artifactId>
+				<version>1.0.1-SNAPSHOT</version>
+				<scope>compile</scope>
+			</dependency>
+			<dependency>
+				<groupId>se.bluebrim</groupId>
+				<artifactId>se.bluebrim.crud.server</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+				<scope>compile</scope>
+			</dependency>
+			<dependency>
+				<groupId>se.bluebrim</groupId>
+				<artifactId>se.bluebrim.crud.client</artifactId>
+				<version>1.0.1-SNAPSHOT</version>
+				<scope>compile</scope>
+			</dependency>
+			<dependency>
+				<groupId>se.bluebrim</groupId>
+				<artifactId>jfreecrud-parent</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+				<type>pom</type>
+				<scope>compile</scope>
+			</dependency>
+			<dependency>
+				<groupId>se.bluebrim</groupId>
+				<artifactId>se.bluebrim.crud.client</artifactId>
+				<version>1.0.1-SNAPSHOT</version>
+				<type>test-jar</type>
+				<scope>test</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 	<!--
 		Found at Don Brown's Weblog:
 		http://www.jroller.com/mrdon/entry/find_of_the_day_wagon

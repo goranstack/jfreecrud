@@ -1,60 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<beans  xmlns="http://www.springframework.org/schema/beans"
-	     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	     xmlns:tx="http://www.springframework.org/schema/tx"
-	     xmlns:aop="http://www.springframework.org/schema/aop"
-	     xmlns:lang="http://www.springframework.org/schema/lang"
-	     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:lang="http://www.springframework.org/schema/lang"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
            http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-2.0.xsd
            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
-	
+
+	<bean id="migrationManager" class="com.carbonfive.db.migration.DataSourceMigrationManager"
+		init-method="migrate">
+		<constructor-arg ref="dataSource" />
+	</bean>
+
 	<!-- Define database connection -->
-	<!-- Placeholders of the format ${xx.xxx} is be replaced by properties from server.properties 
-	in the ServiceLocator.init method-->
-	
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-		<property name="url" value="${db.dsn}"/>
-		<property name="username" value="${db.user}"/>
-		<property name="password" value="${db.password}"/>
-		<property name="driverClassName" value="net.sourceforge.jtds.jdbc.Driver"/>
-		<property name="defaultTransactionIsolation" value="2"/> <!-- Connection.TRANSACTION_READ_COMMITTED -->
+	<!--
+		Placeholders of the format ${xx.xxx} is be replaced by properties from
+		application-context.properties in the ServiceLocator.init method
+	-->
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="url" value="${db.dsn}" />
+		<property name="username" value="${db.user}" />
+		<property name="password" value="${db.password}" />
+		<property name="driverClassName" value="${db.driver}" />
+		<property name="defaultTransactionIsolation" value="2" /> <!-- Connection.TRANSACTION_READ_COMMITTED -->
 	</bean>
 
-	<!-- 
-		The following configurations sets up a chain of proxies like this: 
-		RMIProxy -> LoggingInterceptor -> DataSourceTransactionManager -> Crud Example xxxDao
+	<!--
+		The following configurations sets up a chain of proxies like this:
+		RMIProxy -> LoggingInterceptor -> DataSourceTransactionManager -> Crud
+		Example xxxDao
 	-->
-	
-	<!-- Enable the configuration of transactional behavior based on annotations -->	
-	<tx:annotation-driven transaction-manager="txManager" order="2"/>
-	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataSource"/>
+
+	<!--
+		Enable the configuration of transactional behavior based on
+		annotations
+	-->
+	<tx:annotation-driven transaction-manager="txManager"
+		order="2" />
+	<bean id="txManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
 	</bean>
 
-	<!-- 
-		Enable an interceptor that catches and logs all exceptions from Crud Example Dao's before sending a 
-		generic exception to the client. This is bases on naming convention, .i.e. everything that is it handles 
-		beans with interfaces ending on Dao 
+	<!--
+		Enable an interceptor that catches and logs all exceptions from Crud
+		Example Dao's before sending a generic exception to the client. This
+		is bases on naming convention, .i.e. everything that is it handles
+		beans with interfaces ending on Dao
 	-->
-	<aop:aspectj-autoproxy/>
-	<bean id="loggingInterceptor" class="se.bluebrim.crud.example.server.LoggingInterceptor"/>
+	<aop:aspectj-autoproxy />
+	<bean id="loggingInterceptor" class="se.bluebrim.crud.example.server.LoggingInterceptor" />
 
 	<!-- Define server and all DAO's -->
-	<bean id="userService" class="se.bluebrim.crud.example.server.UserServiceImpl" >
-		<property name="dataSource" ref="dataSource"/>
+	<bean id="userService" class="se.bluebrim.crud.example.server.UserServiceImpl" depends-on="migrationManager">
+		<property name="dataSource" ref="dataSource" />
 	</bean>
-	 
+
 	<!-- Export all DAO's as RMI interfaces except the server local ones -->
-	<bean id="rmiBeanTemplate" class="org.springframework.remoting.rmi.RmiServiceExporter" abstract="true">
-		<property name="registryPort" value="1099"/>
+	<bean id="rmiBeanTemplate" class="org.springframework.remoting.rmi.RmiServiceExporter"
+		abstract="true">
+		<property name="registryPort" value="1099" />
 	</bean>
-	
+
 	<bean parent="rmiBeanTemplate">
-		<property name="serviceName" value="crudUserService"/>
-		<property name="service" ref="userService"/>
-		<property name="serviceInterface" value="se.bluebrim.crud.example.remote.UserService"/>
+		<property name="serviceName" value="crudUserService" />
+		<property name="service" ref="userService" />
+		<property name="serviceInterface" value="se.bluebrim.crud.example.remote.UserService" />
 	</bean>
-	 
+
 </beans>
