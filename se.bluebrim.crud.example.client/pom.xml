@@ -34,7 +34,9 @@
 		</dependency>
 	</dependencies>
 	<build>
-	<!-- http://karussell.wordpress.com/2009/05/05/maven-and-webstart-jnlp/ -->
+		<!--
+			http://karussell.wordpress.com/2009/05/05/maven-and-webstart-jnlp/
+		-->
 		<plugins>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
@@ -47,20 +49,25 @@
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>webstart-maven-plugin</artifactId>
-					<!--
-						do not bind to install phase <executions> <execution> <goals>
-						<goal>report</goal> </goals> </execution> </executions>
+					<!-- do not bind to install phase 
+						<executions> 
+							<execution> 
+								<goals>
+									<goal>report</goal> 
+								</goals>
+							</execution> 
+						</executions>
 					-->
 					<configuration>
 						<jnlp>
-							<mainClass>de.timefinder.core.Startup</mainClass>
+							<mainClass>se.bluebrim.crud.example.client.CrudExampleClient</mainClass>
 						</jnlp>
 						<sign>
-							<keystore>/home/peterk/Dokumente/quell/timefinder/trunk/timefinder-core/timefinder.jks</keystore>
-							<keypass>unsecpwd</keypass>
-							<storepass>unsecpwd</storepass>
+							<keystore>src/jnlp/crud-example-client.jks</keystore>
+							<keypass>${keypass}</keypass>
+							<storepass>${storepass}</storepass>
 							<storetype>jks</storetype>
-							<alias>timefinder</alias>
+							<alias>crud-example-client</alias>
 							<verify>true</verify>
 						</sign>
 						<verbose>true</verbose>
