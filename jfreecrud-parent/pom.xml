@@ -42,11 +42,13 @@
 	<modules>
 		<module>../se.bluebrim.crud</module>
 		<module>../se.bluebrim.crud.client</module>
-		<module>../se.bluebrim.crud.example</module>
 		<module>../se.bluebrim.crud.server</module>
+		<module>../se.bluebrim.crud.example</module>
+		<module>../se.bluebrim.crud.example.server</module>
+		<module>../se.bluebrim.crud.example.client</module>
 		<module>../se.bluebrim.crud.tutorial</module>
-		<module>../se.bluebrim.crud.tutorial.client</module>
 		<module>../se.bluebrim.crud.tutorial.server</module>
+		<module>../se.bluebrim.crud.tutorial.client</module>
 	</modules>
 	<repositories>
 		<repository>
@@ -94,6 +96,49 @@
 				<type>test-jar</type>
 				<scope>test</scope>
 			</dependency>
+			<dependency>
+				<groupId>se.bluebrim</groupId>
+				<artifactId>se.bluebrim.crud.example</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+				<scope>compile</scope>
+			</dependency>
+			<dependency>
+				<groupId>se.bluebrim</groupId>
+				<artifactId>se.bluebrim.crud.example.server</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+				<scope>compile</scope>
+			</dependency>
+			<dependency>
+				<groupId>se.bluebrim</groupId>
+				<artifactId>se.bluebrim.crud.example.server</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+				<type>test-jar</type>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>se.bluebrim</groupId>
+				<artifactId>se.bluebrim.crud.example.client</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+				<scope>compile</scope>
+			</dependency>
+			<dependency>
+				<groupId>se.bluebrim</groupId>
+				<artifactId>se.bluebrim.crud.tutorial</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+				<scope>compile</scope>
+			</dependency>
+			<dependency>
+				<groupId>se.bluebrim</groupId>
+				<artifactId>se.bluebrim.crud.tutorial.server</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+				<scope>compile</scope>
+			</dependency>
+			<dependency>
+				<groupId>se.bluebrim</groupId>
+				<artifactId>se.bluebrim.crud.tutorial.client</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+				<scope>compile</scope>
+			</dependency>			
 		</dependencies>
 	</dependencyManagement>
 	<!--

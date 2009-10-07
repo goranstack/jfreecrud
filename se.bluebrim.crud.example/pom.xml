@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>se.bluebrim</groupId>
 	<artifactId>se.bluebrim.crud.example</artifactId>
-	<name>CRUD framework example application</name>
+	<name>CRUD Example</name>
 	<version>0.0.1-SNAPSHOT</version>
 	<description>A very small example application based on the CRUD framework.</description>
 	<parent>

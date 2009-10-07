@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0+" codebase="http://jfreecrud.googlecode.com/svn/trunk/site/jnlp" href="$outputFile">
+ <information>
+    <title>JFreeCrud Client Example</title>
+    <vendor>JFreeCrud Team</vendor>
+    <homepage href="http://code.google.com/p/jfreecrud"/>
+    <description kind="one-line">JFreeCrud Client Example</description>
+    <description kind="short">JFreeCrud Client Example - the client part of the JFreeCrud example application</description>
+    <description kind="tooltip">JFreeCrud Client Example - the client part of the JFreeCrud example application</description>
+    <icon href="client-icon.png" kind="default"/>
+    <shortcut online="false"><desktop/><menu submenu="JFreeCrud Client Example"/></shortcut>
+ </information>
+ <security>
+ <all-permissions/>
+ </security>
+ <resources>
+    <j2se version="1.6+" initial-heap-size="32m" max-heap-size="128m" />
+    <property name="jnlp.versionEnabled" value="true"/>
+    $dependencies
+ </resources>
+ <application-desc main-class="$mainClass">
+ </application-desc>
+</jnlp>

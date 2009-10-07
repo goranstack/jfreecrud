@@ -15,7 +15,6 @@
 		<dependency>
 			<groupId>se.bluebrim</groupId>
 			<artifactId>se.bluebrim.crud.example</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>se.bluebrim</groupId>
@@ -30,40 +29,51 @@
 		<dependency>
 			<groupId>se.bluebrim</groupId>
 			<artifactId>se.bluebrim.crud.example.server</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
 			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
 	<build>
+	<!-- http://karussell.wordpress.com/2009/05/05/maven-and-webstart-jnlp/ -->
 		<plugins>
-			<!--
-				http://www.jroller.com/wireframe/entry/new_maven_webstart_plugin
-			-->
 			<plugin>
-				<groupId>com.codecrate</groupId>
+				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>webstart-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>generate-jnlp</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<mainClass>se.bluebrim.crud.example.client.CrudExampleClient</mainClass>
-					<allPermissions>false</allPermissions>
-					<codebase>.</codebase>
-				</configuration>
+				<version>1.0-alpha-1</version>
 			</plugin>
 		</plugins>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>webstart-maven-plugin</artifactId>
+					<!--
+						do not bind to install phase <executions> <execution> <goals>
+						<goal>report</goal> </goals> </execution> </executions>
+					-->
+					<configuration>
+						<jnlp>
+							<mainClass>de.timefinder.core.Startup</mainClass>
+						</jnlp>
+						<sign>
+							<keystore>/home/peterk/Dokumente/quell/timefinder/trunk/timefinder-core/timefinder.jks</keystore>
+							<keypass>unsecpwd</keypass>
+							<storepass>unsecpwd</storepass>
+							<storetype>jks</storetype>
+							<alias>timefinder</alias>
+							<verify>true</verify>
+						</sign>
+						<verbose>true</verbose>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 	<repositories>
 		<repository>
-			<id>codecrate-repository</id>
-			<name>Codecrate Repository</name>
-			<url>http://maven.codecrate.com/</url>
+			<id>codehaus-repository</id>
+			<name>Codehaus Repository</name>
+			<url>http://repository.codehaus.org/</url>
 		</repository>
 	</repositories>
 

@@ -3,6 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>se.bluebrim</groupId>
 	<artifactId>se.bluebrim.crud.tutorial.client</artifactId>
+	<name>CRUD Tutorial Client</name>
 	<version>0.0.1-SNAPSHOT</version>
 	<parent>
 		<artifactId>jfreecrud-parent</artifactId>
@@ -13,11 +14,22 @@
 		<dependency>
 			<groupId>se.bluebrim</groupId>
 			<artifactId>se.bluebrim.crud.tutorial</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>se.bluebrim</groupId>
 			<artifactId>se.bluebrim.crud.client</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>se.bluebrim</groupId>
+			<artifactId>se.bluebrim.crud.client</artifactId>
+			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>se.bluebrim</groupId>
+			<artifactId>se.bluebrim.crud.example.server</artifactId>
+			<type>test-jar</type>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>

@@ -3,6 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>se.bluebrim</groupId>
 	<artifactId>se.bluebrim.crud.tutorial.server</artifactId>
+	<name>CRUD Tutorial Server</name>
 	<version>0.0.1-SNAPSHOT</version>
 	<parent>
 		<artifactId>jfreecrud-parent</artifactId>
@@ -19,7 +20,6 @@
 		<dependency>
 			<groupId>se.bluebrim</groupId>
 			<artifactId>se.bluebrim.crud.tutorial</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>se.bluebrim</groupId>

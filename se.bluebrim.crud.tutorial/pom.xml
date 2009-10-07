@@ -3,6 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>se.bluebrim</groupId>
 	<artifactId>se.bluebrim.crud.tutorial</artifactId>
+	<name>CRUD Tutorial</name>
 	<version>0.0.1-SNAPSHOT</version>
 	<parent>
 		<artifactId>jfreecrud-parent</artifactId>
@@ -27,7 +28,7 @@
 							<goal>generate-html</goal>
 							<goal>generate-pdf</goal>
 						</goals>
-						<phase>generate-sources</phase>
+						<phase>site-deploy</phase>
 					</execution>
 				</executions>
 				<dependencies>
