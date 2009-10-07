@@ -36,6 +36,7 @@
 	<build>
 		<!--
 			http://karussell.wordpress.com/2009/05/05/maven-and-webstart-jnlp/
+			http://mojo.codehaus.org/webstart/webstart-maven-plugin/jnlp-mojos-overview.html
 		-->
 		<plugins>
 			<plugin>
@@ -62,6 +63,7 @@
 						<jnlp>
 							<mainClass>se.bluebrim.crud.example.client.CrudExampleClient</mainClass>
 						</jnlp>
+						<libPath>lib</libPath>						
 						<sign>
 							<keystore>src/jnlp/crud-example-client.jks</keystore>
 							<keypass>${keypass}</keypass>
