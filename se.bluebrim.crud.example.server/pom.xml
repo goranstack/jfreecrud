@@ -14,6 +14,15 @@
 
 	<build>
 		<plugins>
+		<!--
+			http://karussell.wordpress.com/2009/05/05/maven-and-webstart-jnlp/
+			http://mojo.codehaus.org/webstart/webstart-maven-plugin/jnlp-mojos-overview.html
+		-->
+			<plugin>
+				<groupId>org.codehaus.mojo.webstart</groupId>
+				<artifactId>webstart-maven-plugin</artifactId>
+				<version>1.0-alpha-2</version>
+			</plugin>
 			<plugin>
 				<groupId>com.carbonfive.db-support</groupId>
 				<artifactId>db-migration-maven-plugin</artifactId>
@@ -44,8 +53,47 @@
 				</executions>
 			</plugin>
 		</plugins>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>webstart-maven-plugin</artifactId>
+					<!-- do not bind to install phase 
+						<executions> 
+							<execution> 
+								<goals>
+									<goal>report</goal> 
+								</goals>
+							</execution> 
+						</executions>
+					-->
+					<configuration>
+						<jnlp>
+							<mainClass>se.bluebrim.crud.example.server.CrudExampleServer</mainClass>
+						</jnlp>
+						<libPath>lib</libPath>						
+						<sign>
+							<keystore>src/jnlp/jfreecrud.jks</keystore>
+							<keypass>${keypass}</keypass>
+							<storepass>${storepass}</storepass>
+							<storetype>jks</storetype>
+							<alias>jfreecrud</alias>
+							<verify>true</verify>
+						</sign>
+						<verbose>true</verbose>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 
+	<repositories>
+		<repository>
+			<id>codehaus-repository</id>
+			<name>Codehaus Repository</name>
+			<url>http://repository.codehaus.org/</url>
+		</repository>
+	</repositories>
 	<pluginRepositories>
 		<pluginRepository>
 			<id>c5-public-repository</id>
