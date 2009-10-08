@@ -34,15 +34,15 @@
 		</dependency>
 	</dependencies>
 	<build>
+		<plugins>
 		<!--
 			http://karussell.wordpress.com/2009/05/05/maven-and-webstart-jnlp/
 			http://mojo.codehaus.org/webstart/webstart-maven-plugin/jnlp-mojos-overview.html
 		-->
-		<plugins>
 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
+				<groupId>org.codehaus.mojo.webstart</groupId>
 				<artifactId>webstart-maven-plugin</artifactId>
-				<version>1.0-alpha-1</version>
+				<version>1.0-alpha-2</version>
 			</plugin>
 		</plugins>
 		<pluginManagement>
@@ -65,11 +65,11 @@
 						</jnlp>
 						<libPath>lib</libPath>						
 						<sign>
-							<keystore>src/jnlp/crud-example-client.jks</keystore>
+							<keystore>src/jnlp/jfreecrud.jks</keystore>
 							<keypass>${keypass}</keypass>
 							<storepass>${storepass}</storepass>
 							<storetype>jks</storetype>
-							<alias>crud-example-client</alias>
+							<alias>jfreecrud</alias>
 							<verify>true</verify>
 						</sign>
 						<verbose>true</verbose>

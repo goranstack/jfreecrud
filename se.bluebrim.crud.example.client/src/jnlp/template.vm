@@ -7,7 +7,7 @@
     <description kind="one-line">JFreeCrud Client Example</description>
     <description kind="short">JFreeCrud Client Example - the client part of the JFreeCrud example application</description>
     <description kind="tooltip">JFreeCrud Client Example - the client part of the JFreeCrud example application</description>
-    <icon href="client-icon.png" kind="default"/>
+    <icon href="client_risto_pekkal.png" kind="default"/>
     <shortcut online="false"><desktop/><menu submenu="JFreeCrud Client Example"/></shortcut>
  </information>
  <security>
