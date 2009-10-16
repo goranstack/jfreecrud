@@ -2,6 +2,7 @@ package se.bluebrim.crud.example.server;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
+import org.springframework.core.io.ClassPathResource;
 
 import se.bluebrim.crud.example.common.ServiceLocator;
 
@@ -17,7 +18,7 @@ public class CrudExampleServer
 
 	public static void main(String[] args)
 	{
-		String loggingConfigFilname = CrudExampleServer.class.getClassLoader().getResource("log4j.properties").getFile();
+		String loggingConfigFilname = new ClassPathResource("log4j.properties").getFilename();
 		PropertyConfigurator.configureAndWatch(loggingConfigFilname);
 
 		// Initialize Spring framework via the ServiceLocator
