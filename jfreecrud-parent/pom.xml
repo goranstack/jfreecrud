@@ -5,13 +5,13 @@
 	<artifactId>jfreecrud-parent</artifactId>
 	<packaging>pom</packaging>
 	<name>JFreeCRUD Parent</name>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.1-SNAPSHOT</version>
 
 	<build>
 		<resources>
 		<!-- Make it possible to put resource files along side the java classes -->
 			<resource>
-				<directory> src/main/java </directory>
+				<directory>src/main/java</directory>
 				<excludes>
 					<exclude> **/*.java</exclude>
 				</excludes>
@@ -96,7 +96,7 @@
 			<dependency>
 				<groupId>se.bluebrim</groupId>
 				<artifactId>se.bluebrim.crud.server</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
+				<version>1.0.1-SNAPSHOT</version>
 				<scope>compile</scope>
 			</dependency>
 			<dependency>
@@ -108,7 +108,7 @@
 			<dependency>
 				<groupId>se.bluebrim</groupId>
 				<artifactId>jfreecrud-parent</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
+				<version>1.0.1-SNAPSHOT</version>
 				<type>pom</type>
 				<scope>compile</scope>
 			</dependency>
@@ -122,44 +122,44 @@
 			<dependency>
 				<groupId>se.bluebrim</groupId>
 				<artifactId>se.bluebrim.crud.example</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
+				<version>1.0.1-SNAPSHOT</version>
 				<scope>compile</scope>
 			</dependency>
 			<dependency>
 				<groupId>se.bluebrim</groupId>
 				<artifactId>se.bluebrim.crud.example.server</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
+				<version>1.0.1-SNAPSHOT</version>
 				<scope>compile</scope>
 			</dependency>
 			<dependency>
 				<groupId>se.bluebrim</groupId>
 				<artifactId>se.bluebrim.crud.example.server</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
+				<version>1.0.1-SNAPSHOT</version>
 				<type>test-jar</type>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>se.bluebrim</groupId>
 				<artifactId>se.bluebrim.crud.example.client</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
+				<version>1.0.1-SNAPSHOT</version>
 				<scope>compile</scope>
 			</dependency>
 			<dependency>
 				<groupId>se.bluebrim</groupId>
 				<artifactId>se.bluebrim.crud.tutorial</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
+				<version>1.0.1-SNAPSHOT</version>
 				<scope>compile</scope>
 			</dependency>
 			<dependency>
 				<groupId>se.bluebrim</groupId>
 				<artifactId>se.bluebrim.crud.tutorial.server</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
+				<version>1.0.1-SNAPSHOT</version>
 				<scope>compile</scope>
 			</dependency>
 			<dependency>
 				<groupId>se.bluebrim</groupId>
 				<artifactId>se.bluebrim.crud.tutorial.client</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
+				<version>1.0.1-SNAPSHOT</version>
 				<scope>compile</scope>
 			</dependency>
 		</dependencies>
