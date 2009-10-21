@@ -4,12 +4,12 @@
 	<groupId>se.bluebrim</groupId>
 	<artifactId>se.bluebrim.crud.example</artifactId>
 	<name>CRUD Example</name>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<description>A very small example application based on the CRUD framework.</description>
 	<parent>
 		<artifactId>jfreecrud-parent</artifactId>
 		<groupId>se.bluebrim</groupId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>1.0.1-SNAPSHOT</version>
 		<relativePath>../jfreecrud-parent/pom.xml</relativePath>
 	</parent>
 	<dependencies>

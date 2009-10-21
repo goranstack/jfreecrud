@@ -52,10 +52,10 @@
 		beans with interfaces ending on Dao
 	-->
 	<aop:aspectj-autoproxy />
-	<bean id="loggingInterceptor" class="se.bluebrim.crud.example.server.LoggingInterceptor" />
+	<bean id="loggingInterceptor" class="se.bluebrim.crud.tutorial.server.LoggingInterceptor" />
 
 	<!-- Define server and all DAO's -->
-	<bean id="userService" class="se.bluebrim.crud.example.server.UserServiceImpl" depends-on="migrationManager">
+	<bean id="artistService" class="se.bluebrim.crud.tutorial.server.ArtistDaoImpl" depends-on="migrationManager">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 
@@ -67,8 +67,8 @@
 
 	<bean parent="rmiBeanTemplate">
 		<property name="serviceName" value="crudUserService" />
-		<property name="service" ref="userService" />
-		<property name="serviceInterface" value="se.bluebrim.crud.example.remote.UserService" />
+		<property name="service" ref="artistService" />
+		<property name="serviceInterface" value="se.bluebrim.crud.tutorial.remote.ArtistDao" />
 	</bean>
 
 </beans>

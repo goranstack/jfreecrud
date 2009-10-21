@@ -8,7 +8,7 @@
 	<parent>
 		<artifactId>jfreecrud-parent</artifactId>
 		<groupId>se.bluebrim</groupId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>1.0.1-SNAPSHOT</version>
 		<relativePath>../jfreecrud-parent/pom.xml</relativePath>
 	</parent>
 	<scm>
