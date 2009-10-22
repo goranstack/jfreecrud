@@ -12,7 +12,12 @@
 	</scm>
 	<build>
 		<resources>
-		<!-- Make it possible to put resource files along side the java classes -->
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+			<!--
+				Make it possible to put resource files along side the java classes
+			-->
 			<resource>
 				<directory>src/main/java</directory>
 				<excludes>
@@ -21,6 +26,9 @@
 			</resource>
 		</resources>
 		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+			</testResource>
 			<testResource>
 				<directory>src/test/java</directory>
 				<excludes>
@@ -37,7 +45,10 @@
 					<target>1.6</target>
 				</configuration>
 			</plugin>
-			<!-- Make it possible to for test code to depend on test code in other modules -->
+			<!--
+				Make it possible to for test code to depend on test code in other
+				modules
+			-->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
