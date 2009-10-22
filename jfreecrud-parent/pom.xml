@@ -4,10 +4,10 @@
 	<artifactId>jfreecrud-parent</artifactId>
 	<packaging>pom</packaging>
 	<name>JFreeCRUD Parent</name>
-	<version>1.0.2-SNAPSHOT</version>
+	<version>1.0.2</version>
 	<scm>
-		<connection>scm:svn:http://jfreecrud.googlecode.com/svn/trunk/jfreecrud-parent</connection>
-		<developerConnection>scm:svn:https://jfreecrud.googlecode.com/svn/trunk/jfreecrud-parent</developerConnection>
+		<connection>scm:svn:http://jfreecrud.googlecode.com/svn/tags/jfreecrud-parent-1.0.2</connection>
+		<developerConnection>scm:svn:https://jfreecrud.googlecode.com/svn/tags/jfreecrud-parent-1.0.2</developerConnection>
 	</scm>
 	<build>
 		<resources>
