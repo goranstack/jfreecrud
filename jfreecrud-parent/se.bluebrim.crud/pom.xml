@@ -3,7 +3,7 @@
 	<parent>
 		<artifactId>jfreecrud-parent</artifactId>
 		<groupId>se.bluebrim</groupId>
-		<version>1.0.2</version>
+		<version>1.0.3-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>se.bluebrim.crud</artifactId>
