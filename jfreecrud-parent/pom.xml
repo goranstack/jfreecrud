@@ -94,15 +94,15 @@
 		</dependencies>
 	</dependencyManagement>
 	<modules>
-		<module>../se.bluebrim.crud</module>
-		<module>../se.bluebrim.crud.client</module>
-		<module>../se.bluebrim.crud.server</module>
-		<module>../se.bluebrim.crud.example</module>
-		<module>../se.bluebrim.crud.example.server</module>
-		<module>../se.bluebrim.crud.example.client</module>
-		<module>../se.bluebrim.crud.tutorial</module>
-		<module>../se.bluebrim.crud.tutorial.server</module>
-		<module>../se.bluebrim.crud.tutorial.client</module>
+		<module>se.bluebrim.crud</module>
+		<module>se.bluebrim.crud.client</module>
+		<module>se.bluebrim.crud.server</module>
+		<module>se.bluebrim.crud.example</module>
+		<module>se.bluebrim.crud.example.server</module>
+		<module>se.bluebrim.crud.example.client</module>
+		<module>se.bluebrim.crud.tutorial</module>
+		<module>se.bluebrim.crud.tutorial.server</module>
+		<module>se.bluebrim.crud.tutorial.client</module>
 	</modules>
 	<repositories>
 		<repository>
