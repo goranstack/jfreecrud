@@ -36,6 +36,7 @@
 					<dependency>
 						<groupId>org.docbook</groupId>
 						<artifactId>docbook-xml</artifactId>
+						<version>5.0</version>
 						<scope>runtime</scope>
 					</dependency>
 				</dependencies>
