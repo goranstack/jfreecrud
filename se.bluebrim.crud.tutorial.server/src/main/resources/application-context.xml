@@ -55,7 +55,7 @@
 	<bean id="loggingInterceptor" class="se.bluebrim.crud.tutorial.server.LoggingInterceptor" />
 
 	<!-- Define server and all DAO's -->
-	<bean id="artistService" class="se.bluebrim.crud.tutorial.server.ArtistDaoImpl" depends-on="migrationManager">
+	<bean id="artistDao" class="se.bluebrim.crud.tutorial.server.ArtistDaoImpl" depends-on="migrationManager">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 
@@ -66,8 +66,8 @@
 	</bean>
 
 	<bean parent="rmiBeanTemplate">
-		<property name="serviceName" value="crudUserService" />
-		<property name="service" ref="artistService" />
+		<property name="serviceName" value="crudArtistService" />
+		<property name="service" ref="artistDao" />
 		<property name="serviceInterface" value="se.bluebrim.crud.tutorial.remote.ArtistDao" />
 	</bean>
 

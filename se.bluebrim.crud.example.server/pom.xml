@@ -29,7 +29,7 @@
 				<artifactId>db-migration-maven-plugin</artifactId>
 				<version>RELEASE</version>
 				<configuration>
-					<url>jdbc:hsqldb:mem:aname</url>
+					<url>jdbc:hsqldb:mem:example-db</url>
 					<username>sa</username>
 					<password></password>
 				</configuration>
