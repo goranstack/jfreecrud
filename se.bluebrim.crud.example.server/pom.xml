@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project>
-	<description>The server part of the CRUD example</description>
+	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<artifactId>jfreecrud-parent</artifactId>
 		<groupId>se.bluebrim</groupId>
 		<version>1.0.1-SNAPSHOT</version>
 		<relativePath>../jfreecrud-parent/pom.xml</relativePath>
 	</parent>
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>se.bluebrim</groupId>
+
 	<artifactId>se.bluebrim.crud.example.server</artifactId>
 	<name>CRUD Example Server</name>
-	<version>1.0.1-SNAPSHOT</version>
+	<description>The server part of the CRUD example</description>
 
 	<build>
 		<plugins>
@@ -40,18 +39,6 @@
 						<version>1.8.0.1</version>
 					</dependency>
 				</dependencies>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.2</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>test-jar</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 		</plugins>
 		<pluginManagement>
@@ -104,17 +91,19 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>se.bluebrim</groupId>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>se.bluebrim.crud.server</artifactId>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.7</version>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>se.bluebrim</groupId>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>se.bluebrim.crud.example</artifactId>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.carbonfive.db-support</groupId>

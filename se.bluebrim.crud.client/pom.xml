@@ -1,21 +1,17 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>se.bluebrim</groupId>
-	<artifactId>se.bluebrim.crud.client</artifactId>
-	<name>CRUD Client</name>
-	<version>1.0.1-SNAPSHOT</version>
-	<description>The client part of the CRUD framework.</description>
 	<parent>
 		<artifactId>jfreecrud-parent</artifactId>
 		<groupId>se.bluebrim</groupId>
 		<version>1.0.1-SNAPSHOT</version>
 		<relativePath>../jfreecrud-parent/pom.xml</relativePath>
 	</parent>
-	<scm>
-		<connection>scm:svn:http://jfreecrud.googlecode.com/svn/trunk/se.bluebrim.crud.client</connection>
-		<developerConnection>scm:svn:https://jfreecrud.googlecode.com/svn/trunk/se.bluebrim.crud.client</developerConnection>
-	</scm>
+
+	<artifactId>se.bluebrim.crud.client</artifactId>
+	<name>CRUD Client</name>
+	<description>The client part of the CRUD framework.</description>
+
 	<dependencies>
 		<dependency>
 			<groupId>com.toedter</groupId>
@@ -40,11 +36,12 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.7</version>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>se.bluebrim</groupId>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>se.bluebrim.crud</artifactId>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.bushe</groupId>

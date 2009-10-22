@@ -97,11 +97,6 @@
 	</modules>
 	<repositories>
 		<repository>
-			<id>googlecode-jfreecrud</id>
-			<name>JFreeCrud Maven Repo</name>
-			<url>http://jfreecrud.googlecode.com/svn/repo</url>
-		</repository>
-		<repository>
 			<id>googlecode-esox</id>
 			<name>Esox Maven Repo</name>
 			<url>http://esox.googlecode.com/svn/repo</url>
@@ -110,79 +105,9 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
-				<groupId>se.bluebrim</groupId>
-				<artifactId>se.bluebrim.crud</artifactId>
-				<version>1.0.1-SNAPSHOT</version>
-				<scope>compile</scope>
-			</dependency>
-			<dependency>
-				<groupId>se.bluebrim</groupId>
-				<artifactId>se.bluebrim.crud.server</artifactId>
-				<version>1.0.1-SNAPSHOT</version>
-				<scope>compile</scope>
-			</dependency>
-			<dependency>
-				<groupId>se.bluebrim</groupId>
-				<artifactId>se.bluebrim.crud.client</artifactId>
-				<version>1.0.1-SNAPSHOT</version>
-				<scope>compile</scope>
-			</dependency>
-			<dependency>
-				<groupId>se.bluebrim</groupId>
-				<artifactId>jfreecrud-parent</artifactId>
-				<version>1.0.1-SNAPSHOT</version>
-				<type>pom</type>
-				<scope>compile</scope>
-			</dependency>
-			<dependency>
-				<groupId>se.bluebrim</groupId>
-				<artifactId>se.bluebrim.crud.client</artifactId>
-				<version>1.0.1-SNAPSHOT</version>
-				<type>test-jar</type>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<groupId>se.bluebrim</groupId>
-				<artifactId>se.bluebrim.crud.example</artifactId>
-				<version>1.0.1-SNAPSHOT</version>
-				<scope>compile</scope>
-			</dependency>
-			<dependency>
-				<groupId>se.bluebrim</groupId>
-				<artifactId>se.bluebrim.crud.example.server</artifactId>
-				<version>1.0.1-SNAPSHOT</version>
-				<scope>compile</scope>
-			</dependency>
-			<dependency>
-				<groupId>se.bluebrim</groupId>
-				<artifactId>se.bluebrim.crud.example.server</artifactId>
-				<version>1.0.1-SNAPSHOT</version>
-				<type>test-jar</type>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<groupId>se.bluebrim</groupId>
-				<artifactId>se.bluebrim.crud.example.client</artifactId>
-				<version>1.0.1-SNAPSHOT</version>
-				<scope>compile</scope>
-			</dependency>
-			<dependency>
-				<groupId>se.bluebrim</groupId>
-				<artifactId>se.bluebrim.crud.tutorial</artifactId>
-				<version>1.0.1-SNAPSHOT</version>
-				<scope>compile</scope>
-			</dependency>
-			<dependency>
-				<groupId>se.bluebrim</groupId>
-				<artifactId>se.bluebrim.crud.tutorial.server</artifactId>
-				<version>1.0.1-SNAPSHOT</version>
-				<scope>compile</scope>
-			</dependency>
-			<dependency>
-				<groupId>se.bluebrim</groupId>
-				<artifactId>se.bluebrim.crud.tutorial.client</artifactId>
-				<version>1.0.1-SNAPSHOT</version>
-				<scope>compile</scope>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>4.7</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
