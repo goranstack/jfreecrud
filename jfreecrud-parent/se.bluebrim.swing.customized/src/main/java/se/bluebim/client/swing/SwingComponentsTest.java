@@ -10,6 +10,7 @@ package se.bluebim.client.swing;
  * http://code.google.com/p/seaglass/ <br>
  * http://www.pushing-pixels.org/ <br>
  * http://www.jroller.com/aalmiray/tags/swing <br>
+ * http://weblogs.java.net/blog/zixle/archive/2006/07/beanshell_2d_in.html <br>
  *  
  * @author Goran Stack
  *
