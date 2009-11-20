@@ -14,11 +14,18 @@ package se.bluebim.client.swing;
  * 
  * Perhaps Scene Graph is the way to go for fancy Swing GUI. Check this out:
  * https://scenegraph.dev.java.net <br>
+ * https://scenegraph-effects.dev.java.net <br>
  * http://www.informit.com/articles/article.aspx?p=1323245 <br>
  * http://slreynolds.net/talks/scenegraph <br>
  * http://openjfx.java.sun.com/hudson <br>
  * http://fxexperience.com/ <br>
- *  
+ * http://jfxtras.org/portal/home <br>
+ * 
+ * mixing/combining javafx swing:
+ * http://weblogs.java.net/blog/aim/archive/2009/06/insiders_guide.html <br>
+ * http://jfxtras.org/portal/core/-/wiki/JFXtras/JXScene
+ * http://blogs.sun.com/clarkeman/entry/how_to_use_javafx_in
+ * 
  * @author Goran Stack
  *
  */
