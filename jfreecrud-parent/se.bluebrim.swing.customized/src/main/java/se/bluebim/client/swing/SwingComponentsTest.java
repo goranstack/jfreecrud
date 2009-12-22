@@ -1,5 +1,14 @@
 package se.bluebim.client.swing;
 
+import java.awt.Component;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.WindowConstants;
+
+import org.jdesktop.swingx.JXButton;
+import org.jdesktop.swingx.JXFrame;
+
 /**
  * Application for experimenting with customized Swing components.
  * Links:
@@ -33,8 +42,21 @@ public class SwingComponentsTest {
 
 	public static void main(String[] args) 
 	{
-	
+		new SwingComponentsTest().run();
 
+	}
+
+	private void run() {
+		JFrame window = new JXFrame("Test", true);
+		window.getContentPane().add(getContent());
+		window.setSize(600, 600);
+		window.setLocationRelativeTo(null);
+		window.setVisible(true);
+		
+	}
+
+	private Component getContent() {
+		return new JXButton("Hello");
 	}
 
 }
