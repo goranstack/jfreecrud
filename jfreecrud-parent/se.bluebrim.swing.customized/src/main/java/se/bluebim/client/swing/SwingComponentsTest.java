@@ -1,13 +1,25 @@
 package se.bluebim.client.swing;
 
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GradientPaint;
+import java.awt.Shape;
+import java.awt.geom.Rectangle2D;
+import java.awt.geom.RoundRectangle2D;
 
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.WindowConstants;
 
 import org.jdesktop.swingx.JXButton;
 import org.jdesktop.swingx.JXFrame;
+import org.jdesktop.swingx.JXPanel;
+import org.jdesktop.swingx.painter.CompoundPainter;
+import org.jdesktop.swingx.painter.Painter;
+import org.jdesktop.swingx.painter.RectanglePainter;
+import org.jdesktop.swingx.painter.ShapePainter;
+import org.jdesktop.swingx.painter.AbstractAreaPainter.Style;
+import org.jdesktop.swingx.painter.effects.InnerShadowPathEffect;
 
 /**
  * Application for experimenting with customized Swing components.
@@ -38,8 +50,11 @@ import org.jdesktop.swingx.JXFrame;
  * @author Goran Stack
  *
  */
-public class SwingComponentsTest {
+public class SwingComponentsTest {	
 
+	private static final int ARC_SIZE = 26;
+	private static final Dimension size = new Dimension(160, 80);
+	
 	public static void main(String[] args) 
 	{
 		new SwingComponentsTest().run();
@@ -56,7 +71,49 @@ public class SwingComponentsTest {
 	}
 
 	private Component getContent() {
-		return new JXButton("Hello");
+		JXPanel panel = new JXPanel(new FlowLayout());
+		JXButton button = new JXButton();
+		button.setPreferredSize(size);
+		button.setBorderPainted(false);
+		button.setContentAreaFilled(false);
+		button.setBackgroundPainter(getBackgroundPainter());
+		button.setForegroundPainter(getForegroundPainter());
+		panel.add(button);
+		return panel;
 	}
+
+	private Painter getForegroundPainter() {
+		return null;
+	}
+
+	private Painter getBackgroundPainter() {
+		return new CompoundPainter(getInnerShadowPainter());
+
+	}
+	
+	private Painter getFillPainter()
+	{
+		RoundRectangle2D shape = new RoundRectangle2D.Float(0, 0, size.width, size.height, ARC_SIZE, ARC_SIZE);
+		GradientPaint paint = new GradientPaint(0, 0, Color.ORANGE.brighter(), 0, 1, Color.ORANGE.darker());
+		ShapePainter shapePainter = new ShapePainter(shape, paint, Style.FILLED);
+		shapePainter.setAntialiasing(true);
+		shapePainter.setPaintStretched(true);
+		return shapePainter;
+	}
+	
+	private Painter getInnerShadowPainter()
+	{
+//		Shape shape = new RoundRectangle2D.Float(0, 0, size.width, size.height, ARC_SIZE, ARC_SIZE);
+		Shape shape = new Rectangle2D.Float(0, 0, size.width, size.height);
+		RectanglePainter painter = new RectanglePainter(0,0,0,0, ARC_SIZE, ARC_SIZE, true,
+                Color.ORANGE, 3, Color.GREEN.darker());
+		painter.setAntialiasing(true);
+		painter.setStyle(Style.FILLED);
+		InnerShadowPathEffect innerShadow = new InnerShadowPathEffect();
+		innerShadow.setBrushSteps(2);
+		painter.setAreaEffects(innerShadow);
+		return painter;
+	}
+
 
 }
