@@ -6,11 +6,26 @@
 	<name>JFreeCRUD Parent</name>
 	<version>1.0.3-SNAPSHOT</version>
 	<scm>
-		<connection>scm:svn:http://jfreecrud.googlecode.com/svn/trunk/${artifactId}</connection>
-		<developerConnection>scm:svn:https://jfreecrud.googlecode.com/svn/trunk/${artifactId}</developerConnection>
+		<connection>scm:svn:http://jfreecrud.googlecode.com/svn/trunk/${project.artifactId}</connection>
+		<developerConnection>scm:svn:https://jfreecrud.googlecode.com/svn/trunk/${project.artifactId}</developerConnection>
 		<url>http://code.google.com/p/jfreecrud/source/browse</url>
 	</scm>
+	<properties>
+	    <screenshot-maven-plugin-version>0.0.4</screenshot-maven-plugin-version>
+	</properties>
 	<build>
+		<pluginManagement>
+		    <plugins>
+		        <plugin>
+		            <groupId>se.bluebrim.maven.plugin</groupId>
+		            <artifactId>screenshot-maven-plugin</artifactId>
+		            <version>${screenshot-maven-plugin-version}</version>
+		            <configuration>
+		                <goalPrefix>screenshot</goalPrefix>
+		            </configuration>
+		         </plugin>
+		     </plugins>
+		</pluginManagement>
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
@@ -91,6 +106,12 @@
 				<artifactId>junit</artifactId>
 				<version>4.7</version>
 			</dependency>
+			<dependency>
+	            <groupId>se.bluebrim.maven.plugin</groupId>
+	            <artifactId>screenshot-maven-plugin-api</artifactId>
+	            <version>${screenshot-maven-plugin-version}</version>
+	            <scope>test</scope>
+         	</dependency>
 		</dependencies>
 	</dependencyManagement>
 	<modules>
@@ -111,7 +132,19 @@
 			<name>Esox Maven Repo</name>
 			<url>http://esox.googlecode.com/svn/repo</url>
 		</repository>
+		<repository>
+	        <id>googlecode-screenshot-maven-plugin</id>
+	        <name>Screenshot Maven Plugin Repository</name>
+	        <url>http://screenshot-maven-plugin.googlecode.com/svn/mavenrepo</url>
+     	</repository>
 	</repositories>
+	<pluginRepositories>
+	    <pluginRepository>
+	        <id>googlecode-screenshot-maven-plugin</id>
+	        <name>Screenshot Maven Plugin Repository</name>
+	        <url>http://screenshot-maven-plugin.googlecode.com/svn/mavenrepo</url>
+	    </pluginRepository>
+	</pluginRepositories>
 	<!--
 		Found at Don Brown's Weblog:
 		http://www.jroller.com/mrdon/entry/find_of_the_day_wagon
