@@ -21,7 +21,7 @@
 			<plugin>
 				<groupId>com.carbonfive.db-support</groupId>
 				<artifactId>db-migration-maven-plugin</artifactId>
-				<version>RELEASE</version>
+				<version>0.9.9</version>
 				<configuration>
 					<url>jdbc:hsqldb:mem:tutorial-db</url>
 					<username>sa</username>
