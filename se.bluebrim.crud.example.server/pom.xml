@@ -1,0 +1,109 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>jfreecrud-parent</artifactId>
+		<groupId>se.bluebrim</groupId>
+		<version>1.0.3-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>se.bluebrim.crud.example.server</artifactId>
+	<name>CRUD Example Server</name>
+	<description>The server part of the CRUD example</description>
+
+	<build>
+		<plugins>
+			<!-- http://karussell.wordpress.com/2009/05/05/maven-and-webstart-jnlp/ 
+				http://mojo.codehaus.org/webstart/webstart-maven-plugin/jnlp-mojos-overview.html -->
+			<plugin>
+				<groupId>org.codehaus.mojo.webstart</groupId>
+				<artifactId>webstart-maven-plugin</artifactId>
+				<version>1.0-alpha-2</version>
+			</plugin>
+			<plugin>
+				<groupId>com.carbonfive</groupId>
+				<artifactId>db-migration-maven-plugin</artifactId>
+				<version>0.9.6</version>
+				<configuration>
+					<url>jdbc:hsqldb:mem:example-db</url>
+					<username>sa</username>
+					<password />
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>hsqldb</groupId>
+						<artifactId>hsqldb</artifactId>
+						<version>1.8.1.1</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>webstart-maven-plugin</artifactId>
+					<!-- do not bind to install phase <executions> <execution> <goals> <goal>report</goal> 
+						</goals> </execution> </executions> -->
+					<configuration>
+						<jnlp>
+							<mainClass>se.bluebrim.crud.example.server.CrudExampleServer</mainClass>
+						</jnlp>
+						<libPath>lib</libPath>
+						<sign>
+							<keystore>src/jnlp/jfreecrud.jks</keystore>
+							<keypass>${keypass}</keypass>
+							<storepass>${storepass}</storepass>
+							<storetype>jks</storetype>
+							<alias>jfreecrud</alias>
+							<verify>true</verify>
+						</sign>
+						<verbose>true</verbose>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>se.bluebrim.crud.server</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>se.bluebrim.crud.example</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.carbonfive.db-support</groupId>
+			<artifactId>db-migration</artifactId>
+			<version>0.9.9-m5</version>
+		</dependency>
+		<dependency>
+			<groupId>hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+			<version>1.8.1.1</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.8.0-beta4</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-nop</artifactId>
+			<version>1.8.0-beta4</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+</project>

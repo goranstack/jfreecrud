@@ -1,0 +1,67 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>jfreecrud-parent</artifactId>
+		<groupId>se.bluebrim</groupId>
+		<version>1.0.3-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>se.bluebrim.crud.tutorial.server</artifactId>
+	<name>CRUD Tutorial Server</name>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.carbonfive</groupId>
+				<artifactId>db-migration-maven-plugin</artifactId>
+				<version>0.9.6</version>
+				<configuration>
+					<url>jdbc:hsqldb:mem:tutorial-db</url>
+					<username>sa</username>
+					<password />
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>hsqldb</groupId>
+						<artifactId>hsqldb</artifactId>
+						<version>1.8.1.1</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>se.bluebrim.crud.tutorial</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>se.bluebrim.crud.server</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.carbonfive.db-support</groupId>
+			<artifactId>db-migration</artifactId>
+			<version>0.9.9-m5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.8.0-beta4</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+			<version>1.8.1.1</version>
+			<scope>runtime</scope>
+		</dependency>
+	</dependencies>
+</project>
